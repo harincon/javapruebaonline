@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix = "sql" uri = "http://java.sun.com/jsp/jstl/sql" %>
+<%-- Conexion configurable por variables de entorno (DB_DRIVER, DB_URL, DB_USER, DB_PASS).
+     En la nube (Render + Supabase) se definen en Render; en local, sin variables, usa MySQL de XAMPP. --%>
+<%
+    String dbDriver = System.getenv("DB_DRIVER") != null ? System.getenv("DB_DRIVER") : "com.mysql.cj.jdbc.Driver";
+    String dbUrl    = System.getenv("DB_URL")    != null ? System.getenv("DB_URL")    : "jdbc:mysql://localhost:3306/empleados";
+    String dbUser   = System.getenv("DB_USER")   != null ? System.getenv("DB_USER")   : "root";
+    String dbPass   = System.getenv("DB_PASS")   != null ? System.getenv("DB_PASS")   : "";
+%>
+<sql:setDataSource var = "empleados"
+                   driver = "<%= dbDriver %>"
+                   url = "<%= dbUrl %>"
+                   user = "<%= dbUser %>"
+                   password = "<%= dbPass %>" />
