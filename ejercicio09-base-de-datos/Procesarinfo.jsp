@@ -40,8 +40,9 @@
     <c:set var="nombres" value="${param.nombres}"/>
     <c:set var="apellido1" value="${param.apellido1}"/>
     <c:set var="apellido2" value="${param.apellido2}"/>
-    <c:set var="edad" value="${param.edad}"/>
     <c:catch var="errorBD">
+        <%-- Postgres no convierte texto a entero solo: se pasa la edad como numero --%>
+        <fmt:parseNumber var="edad" value="${param.edad}" integerOnly="true"/>
         <sql:update var="insertar" dataSource="${empleados}">
             insert into empleados (nombres,apellido1,apellido2,edad) values (?,?,?,?)
             <sql:param value="${nombres}"/>
